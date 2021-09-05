@@ -37,5 +37,8 @@ namespace Business.Constants
         public static string RentalUpdated="Kiralık Araç Bilgileri Güncellendi.";
         public static string RentalsListed="Kiralık Araçlar Listelendi.";
         public static string Undeliverable="Araç Teslim Edilmediği için Kiralanamaz!";
+        public static string ImageAdded="Resim Eklendi";
+        public static string MaximumImageLimitExceeded = "Bu araba için daha fazla resim eklenemez";
+        public static string CarNotFound= "Bu idye ait bir araba bulunamadı";
     }
 }
