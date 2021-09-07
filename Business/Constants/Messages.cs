@@ -40,5 +40,9 @@ namespace Business.Constants
         public static string ImageAdded="Resim Eklendi";
         public static string MaximumImageLimitExceeded = "Bu araba için daha fazla resim eklenemez";
         public static string CarNotFound= "Bu idye ait bir araba bulunamadı";
+        public static string NoImagesFoundForThisId="Girilen ID değerine ait resim bulunamadı.";
+        public static string ImageDeleted="Resim Silindi";
+        public static string ImagesListed="Resimler Listelendi";
+        public static string ImageUpdated="Resim Güncellendi";
     }
 }

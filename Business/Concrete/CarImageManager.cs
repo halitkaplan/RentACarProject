@@ -42,45 +42,54 @@ namespace Business.Concrete
             var imageUploadResult = ImageHelper.Upload(carImage.ImagePath, file);
             if (!imageUploadResult.Success) throw new Exception(imageUploadResult.Message);
 
-            return new SuccessResult(Messages.ImageAdded);
+            return new SuccessResult(Messages.ImageAdded);          
 
-
-            //---------------------------------
-
-
-
-        }
-
-        //public IResult UploadCarImage(IFormFile imageFile, CarImage carImage)
-        //{
-
-        //    var result = BusinessRules.Run(ImageLimitForCar(carImage.CarId));
-        //    if (result != null)
-        //    {
-        //        return result;
-        //    }
-
-
-        //    string filePath = ImageHelper.Upload(imageFile);
-        //    carImage.ImagePath = filePath;
-        //    carImage.Date = DateTime.Now;
-        //    // return new SuccessDataResult<CarImage>(carImage);
-        //    return this.Add(carImage);
-        //}
+        }       
 
         public IResult Delete(int id)
         {
-            throw new NotImplementedException();
+            var carImage = _carImageDal.Get(carimage => carimage.Id == id);
+            if (carImage == null)
+            {
+                return new ErrorResult(Messages.NoImagesFoundForThisId);
+            }
+
+            _carImageDal.Delete(carImage);
+
+            var imageDeleteResult = ImageHelper.Delete(carImage.ImagePath);
+            if (!imageDeleteResult.Success)
+            {
+                throw new Exception(imageDeleteResult.Message);
+            }
+            return new SuccessResult(Messages.ImageDeleted);
         }
 
-        public IDataResult<List<Entities.Concrete.CarImage>> GetByCarId(int carId)
+        public IDataResult<List<CarImage>> GetByCarId(int carId)
         {
-            throw new NotImplementedException();
+            var result = _carImageDal.GetAll(carimage => carimage.CarId == carId);
+            var defaultImage = _carImageDal.GetAll(carimage => carimage.ImagePath == ImageHelper.DefaultImagePath);
+            if (result.Count==0)
+            {
+                return new SuccessDataResult<List<CarImage>>(defaultImage, Messages.NoImagesFoundForThisId);
+            }
+            return new SuccessDataResult<List<CarImage>>(result, Messages.ImagesListed);
         }
 
         public IResult Update(int id, IFormFile file)
         {
-            throw new NotImplementedException();
+            var carImage = _carImageDal.Get(carimage => carimage.Id == id);
+            if (carImage==null)
+            {
+                return new ErrorResult(Messages.NoImagesFoundForThisId);
+
+            }
+
+            var imageUpdateResult = ImageHelper.Update(carImage.ImagePath, file);
+            if (!imageUpdateResult.Success)
+            {
+                throw new Exception(imageUpdateResult.Message);
+            }
+            return new SuccessResult(Messages.ImageUpdated);
         }
 
 
