@@ -1,7 +1,9 @@
-﻿using Entities.Concrete;
+﻿using Core.Entities.Concrete;
+using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -44,5 +46,12 @@ namespace Business.Constants
         public static string ImageDeleted="Resim Silindi";
         public static string ImagesListed="Resimler Listelendi";
         public static string ImageUpdated="Resim Güncellendi";
+        public static string AuthorizationDenied="Yetkiniz Yok.";
+        public static string UserRegistered;
+        public static string AccessTokenCreated;
+        public static string UserAlreadyExists;
+        public static string SuccessfulLogin;
+        public static string PasswordError;
+        public static string UserNotFound;
     }
 }
