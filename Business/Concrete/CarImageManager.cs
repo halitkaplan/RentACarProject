@@ -1,5 +1,10 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspect.Autofac.Validation;
+using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Performance;
 using Core.Utilities.Business;
 using Core.Utilities.Helpers;
 using Core.Utilities.Results;
@@ -25,6 +30,9 @@ namespace Business.Concrete
             _carImageDal = carImageDal;
             _carService = carService;
         }
+
+        [SecuredOperation("car.add, admin")]        
+        [PerformanceAspect(5)]
         public IResult Add(int carId, IFormFile file)
         {
             var result = BusinessRules.Run(CarExist(carId), ImageLimitForCar(carId));
@@ -44,8 +52,9 @@ namespace Business.Concrete
 
             return new SuccessResult(Messages.ImageAdded);          
 
-        }       
+        }
 
+        [SecuredOperation("car.add, admin")]
         public IResult Delete(int id)
         {
             var carImage = _carImageDal.Get(carimage => carimage.Id == id);
@@ -75,6 +84,8 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CarImage>>(result, Messages.ImagesListed);
         }
 
+        [SecuredOperation("car.add, admin")]
+        [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Update(int id, IFormFile file)
         {
             var carImage = _carImageDal.Get(carimage => carimage.Id == id);

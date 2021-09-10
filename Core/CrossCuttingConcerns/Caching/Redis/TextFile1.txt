@@ -1,0 +1,8 @@
+﻿Ben yarın öbür gün, Redis'e geçtiğim zaman gelip bunun içini doldurmak ve injectionu ona göre değiştirip bitirmek.
+
+Redis'e geçtiğim zaman:
+Core.DependencyResolvers
+buraya gelip:
+MemoryCacheManager'ı RedisCacheManager ile değiştirmek olur.
+
+
